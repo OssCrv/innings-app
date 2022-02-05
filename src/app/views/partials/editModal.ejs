@@ -1,0 +1,44 @@
+ <!-- Ventana Modal Edición -->
+<div class="modal fade" id="editModal<%= user.cedula %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar Usuario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/edit/<%= user.cedula %>" method="POST">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Cédula</label>
+            <input type="text" class="form-control" id="recipient-name" name="cedula" value="<%= user.cedula %>" disabled>
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Nombre Completo</label>
+            <input class="form-control" id="message-text" name="full_name" value="<%= user.full_name %>">
+          </div>
+          <div class="mb-3">
+              <label for="message-text" class="col-form-label">Nombre de Usuario</label>
+              <input class="form-control" id="message-text" name="user_name" value="<%= user.user_name %>">
+            </div>
+            <div class="mb-3">
+              <label for="message-text" class="col-form-label">Activo/a</label>
+              <select name="is_active" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="message-text">
+                <% if (user.is_active === 'Sí') { %>
+                <option value="1" selected>Sí</option>
+                <option value="0">No</option>
+                <%} else if (user.is_active === 'No'){ %>
+                <option value="1">Si</option>
+                <option value="0" selected>No</option>
+                <%} %>
+              </select>
+              <!--<input class="form-control" id="message-text" name="is_active" value="<%= user.is_active %>">-->
+            </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <input type="submit" class="btn btn-primary" value="Editar">
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

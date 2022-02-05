@@ -1,0 +1,82 @@
+
+
+<nav class="navbar navbar-dark bg-dark" >
+  <div class="container" style="width: 80%;">
+    <a href="/" class="navbar-brand">Jairo S.A.</a>
+   <!--  <a href="/active" class="navbar-brand">Usuarios Activos</a> -->
+
+   
+    <!-- Para agregar -->
+    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addModal" data-bs-whatever="@fat"><span class="material-icons">person_add_alt</span></button>
+      <!-- Modal para agregar -->
+      <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Agregar un Usuario</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="/add" method="POST">
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Cédula</label>
+                  <input type="text" class="form-control" id="recipient-name" name="cedula" placeholder="Ej: 1029230239" required>
+                </div>
+
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Nombre Completo</label>
+                  <input type="text" class="form-control" id="recipient-name" name="full_name" placeholder="Ej: Alberto Gonzáles" required>
+                </div>
+
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Nombre de Usuario</label>
+                  <input type="text" class="form-control" id="recipient-name" name="user_name" placeholder="Ej: algonza" required>
+                </div>
+
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Contraseña</label>
+                  <input type="pass" class="form-control" id="recipient-name" name="pass" required>
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <input type="submit" class="btn btn-primary" value="Enviar">
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <a href="/logout" class="navbar-brand" data-bs-toggle="modal" data-bs-target="#exitModal">Log Out</a>
+      <div class="modal fade" id="exitModal" tabindex="-1" aria-labelledby="exitModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title m-4 text-danger" id="exampleModalLabel"><strong>¿Esta seguro que desea salir?</strong></h4>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <a href="/logout" type="button" class="btn btn-danger">Salir</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+
+
+  </div>
+</nav>
+
+
+<!--    <% if (typeof login != "undefined") { %> 
+            
+        <% } %>
+
+         -->
+
