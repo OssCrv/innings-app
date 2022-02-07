@@ -8,21 +8,19 @@ module.exports = {
     },
 
     create: function (con, dependency_name, callback) {
-        console.log("HEllo from model")
-        console.log(dependency_name)
         con.query(`INSERT INTO dependencies(dependency_name) VALUES ("${dependency_name}")`, callback
         )
     },
 
-    update: function (con, data, id, callback) {
+    update: function (con, id, data, callback) {
         con.query(`
         UPDATE dependencies 
-        SET dependency_name=${data.dependency_name} 
-        WHERE id_dependency=${data.id};
-        `, callback)
+        SET dependency_name=?
+        WHERE id_dependency=?;
+        `, [data.dependency_name, id], callback)
     },
 
-    destroy: function (con, data, id, callback) {
+    delete: function (con, id, callback) {
         con.query(`DELETE FROM dependencies WHERE id_dependency=${id}`, callback)
     }
 
