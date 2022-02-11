@@ -1,28 +1,31 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='\resources\css\style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+<html lang="en">
 
-    <form>
-      <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-      </div>
-      <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-      </div>
-      <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-  </body>
+<head>
+  <%- include('./partials/head'); %>
+    <title>Dependencias</title>
+</head>
+
+<body>
+
+  <%- include('./partials/header'); %>
+
+    <div class="row">
+      <% for(let dependency of dependencies) { %>
+        <a href="/categorias/<%= dependency.dependency_name %>" class="col-lg-6 mb-4 btn">
+          <div class="card bg-light shadow">
+            <div class="card-header">
+              <h1 class="text-center">
+                <%= dependency.dependency_name %>
+              </h1>
+            </div>
+
+          </div>
+        </a>
+        <% } %>
+    </div>
+
+    <%- include('./partials/footer'); %>
+</body>
+
 </html>

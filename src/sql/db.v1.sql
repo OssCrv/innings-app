@@ -51,3 +51,8 @@ DESCRIBE dependencies;
 SELECT * FROM innings;
 SELECT * FROM categories;
 SELECT * FROM dependencies;
+
+SELECT id_category, category_name, dependency_name, id_dependency 
+FROM categories
+    JOIN dependencies
+    ON categories.fk_dependency = dependencies.id_dependency;

@@ -23,6 +23,4 @@ module.exports = {
     delete: function (con, id, callback) {
         con.query(`DELETE FROM dependencies WHERE id_dependency=${id}`, callback)
     }
-
-
 }

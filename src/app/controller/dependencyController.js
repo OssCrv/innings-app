@@ -1,8 +1,15 @@
-const { redirect } = require("express/lib/response")
 const Dependencies = require("../model/dependencyModel")
 
 module.exports = {
 
+    index: function (req, res) {
+        Dependencies.get(req.con,
+            function (err, rows) {
+                if (err) console.error(err)
+                console.table(rows)
+                res.render("index", { dependencies: rows })
+            })
+    },
     list: function (req, res) {
         Dependencies.get(req.con,
             function (err, rows) {
