@@ -30,5 +30,9 @@ module.exports = {
 
     delete: function (con, id, callback) {
         con.query(`DELETE FROM categories WHERE id_category=${id}`, callback)
+    },
+
+    getByDependency: function (con, fk, callback) {
+        con.query(`SELECT * FROM categories WHERE fk_dependency=${fk};`, callback)
     }
 }

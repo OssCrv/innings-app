@@ -6,7 +6,7 @@ const session = require('express-session');
 
 const connection = require('./db')
 
-const indexRouter = require('./routes/index');
+const indexRouter = require('./routes/router');
 
 const app = express();
 

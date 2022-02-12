@@ -3,7 +3,7 @@
 
 <head>
   <%- include('./partials/head'); %>
-    <title>Dependencias</title>
+    <title>Categorias</title>
 </head>
 
 <body>
@@ -11,12 +11,12 @@
   <%- include('./partials/header'); %>
 
     <div class="row">
-      <% for(let dependency of dependencies) { %>
-        <a href="/dependencia/<%= dependency.id_dependency %>" class="col-lg-6 mb-4 btn">
+      <% for(let category of categories) { %>
+        <a href="/dependencia/<%= fkDependency %>/categoria/<%= category.id_category %>" class="col-lg-6 mb-4 btn">
           <div class="card bg-light shadow">
             <div class="card-header">
               <h1 class="text-center">
-                <%= dependency.dependency_name %>
+                <%= category.category_name %>
               </h1>
             </div>
 

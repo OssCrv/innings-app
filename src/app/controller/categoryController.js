@@ -54,9 +54,15 @@ module.exports = {
         Categories.delete(req.con, req.params.id,
             function (err, rows) {
                 if (err) console.error(err)
-
-                console.table(rows)
-                //res.redirect("/categories")
+                res.redirect("/categories")
             })
+    },
+
+    getByDependency: function (req, res) {
+        Categories.getByDependency(req.con, req.params.fk, (err, rows) => {
+            if (err) console.error(err)
+
+            res.render("indexCategories", { categories: rows, fkDependency: req.params.fk })
+        } )
     }
 }

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head'); %>
+        <title>Turno</title>
+</head>
+
+<body>
+
+    <%- include('./partials/header'); %>
+
+        <div class="row">
+
+            <form action="/dependencia/<%= fkDependency %>/categoria/<%= fkCategory %>" method="POST">
+                <div class="input-group input-group-lg">
+                    <input type="text" class="form-control" id="recipient-name" name="document" placeholder="" aria-label="Example text with button addon"
+                    >
+                    <button type="submit" class="btn btn-secondary btn-lg">Large button</button>
+
+                </div>
+            </form>
+
+        </div>
+
+        <%- include('./partials/footer'); %>
+</body>
+
+</html>
