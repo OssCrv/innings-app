@@ -11,18 +11,15 @@
   <%- include('./partials/header'); %>
 
     <div class="row">
-      <% for(let category of categories) { %>
-        <a href="/dependencia/<%= fkDependency %>/categoria/<%= category.id_category %>" class="col-lg-6 mb-4 btn">
-          <div class="card bg-light shadow">
-            <div class="card-header">
-              <h1 class="text-center">
-                <%= category.category_name %>
-              </h1>
-            </div>
+      <% for(let object of inningsByCategory) { %>
+        <%- include('./partials/inningsByCategory', 
+        { category: object.category,
+          innings: object.innings,
+          fkDependency: fkDependency
+         }); %>
 
-          </div>
-        </a>
-        <% } %>
+
+      <% } %>
     </div>
 
     <%- include('./partials/footer'); %>

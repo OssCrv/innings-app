@@ -53,20 +53,46 @@ module.exports = {
         Innings.getByDependency(req.con, req.params.fk, (err, rows) => {
             if (err) console.error(err)
 
-            res.render("indexInnings", { Innings: rows, fkDependency: req.params.fk})
+            res.render("indexInnings", { Innings: rows, fkDependency: req.params.fk })
         })
     },
 
     arrive: function (req, res) {
-        console.log(req.params)
-
-        res.render("arrive", {fkDependency:req.params.fkDependency, fkCategory:req.params.fkCategory});   
+        //console.log(req.params) //=>{ fkDependency: '1', fkCategory: '1' }
+        res.render("arrive", { fkDependency: req.params.fkDependency, fkCategory: req.params.fkCategory });
     },
 
     getInning: function (req, res) {
-        console.log(req.params)
-        console.log(req.body)
 
-        res.render("getInning", {inning:"Mera vuelta"});   
+        let inningNumber = 0;
+        let inning = {};
+
+        inning.fk_dependency = req.params.fkDependency
+        inning.fk_category = req.params.fkCategory
+        inning.document = req.body.document;
+
+        Innings.getActivesOfDay(req.con, (err, rows) => {
+            if (err) console.error(err)
+            inningNumber = rows[0].inning
+            console.log(inningNumber)
+            inning.inning = inningNumber + 1
+
+            if (!inningNumber)
+                Innings.getByDependencyAndCategory(req.con, fkDependency, fkCategory, (err, rows) => {
+                    if (err) console.error(err)
+
+                    inningNumber = rows[0].inning
+                    console.log(`Hola desde el método esté ${inningNumber}`)
+                    inning.inning = inningNumber + 1
+                    Innings.create(req.con, inning, (err, rows) => {
+                        if (err) console.error(err)
+                        res.render("getInning", { inning: inning });
+                    })
+                })
+            Innings.create(req.con, inning, (err, rows) => {
+                if (err) console.error(err)
+                res.render("getInning", { inning: inning }); //Redirect a categories/fk
+            })
+        })
     }
 }

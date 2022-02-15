@@ -13,7 +13,6 @@ router.post('/dependencia/:fkDependency/categoria/:fkCategory', inningController
 
 router.get('/innings/', inningController.list);
 
-
 router.get('/dependencies/', dependencyController.list);
 router.post('/dependencies/create', dependencyController.create);
 router.post('/dependencies/edit/:id', dependencyController.edit);

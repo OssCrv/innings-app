@@ -1,5 +1,7 @@
 const Categories = require("../model/categoryModel")
 const Dependencies = require("../model/dependencyModel")
+const Innings = require("../model/inningModel.js")
+
 
 module.exports = {
     list: function (req, res) {
@@ -61,8 +63,34 @@ module.exports = {
     getByDependency: function (req, res) {
         Categories.getByDependency(req.con, req.params.fk, (err, rows) => {
             if (err) console.error(err)
+            let data = [];
+            let categories = rows;
+            rows.forEach(category => {
+                let aux = {}
+                aux.category = category
+                aux.innings = []
+                data.push(aux)
+            })
 
-            res.render("indexCategories", { categories: rows, fkDependency: req.params.fk })
-        } )
+            console.table(data)
+
+            Innings.getActivesOfDay(req.con, (err, rows) => {
+                if (err) console.error(err)
+
+
+                rows.forEach(inning => {
+                    data.forEach(object => {
+                        if (object.category.id_category == inning.fk_category) {
+                            object.innings.push(inning)
+                        }
+                    })
+                })
+
+                res.render("indexCategories", {
+                    inningsByCategory: data,
+                    fkDependency: req.params.fk,
+                })
+            })
+        })
     }
 }
