@@ -2,9 +2,13 @@ const Innings = require("../model/InningModel")
 
 module.exports = {
     list: function (req, res) {
-        Innings.getAll(req.con,
+        Innings.getActivesOfDay(req.con,
             function (err, rows) {
-                res.render("innings", { innings: rows })
+                if (err) console.error(err)
+                console.table(rows)
+
+                if (rows.length == 0) return res.render("innings", { innings: [] })
+                return res.render("innings", { innings: rows })
             }
         )
     },
@@ -71,26 +75,17 @@ module.exports = {
         inning.fk_category = req.params.fkCategory
         inning.document = req.body.document;
 
-        Innings.getActivesOfDay(req.con, (err, rows) => {
+        Innings.getActivesOfDayByCategory(req.con, inning.fk_category, (err, rows) => {
             if (err) console.error(err)
-            inningNumber = rows[0].inning
+            console.log(rows)
+
+            if (rows.length != 0) inningNumber = rows[0].inning
             console.log(inningNumber)
             inning.inning = inningNumber + 1
 
-            if (!inningNumber)
-                Innings.getByDependencyAndCategory(req.con, fkDependency, fkCategory, (err, rows) => {
-                    if (err) console.error(err)
-
-                    inningNumber = rows[0].inning
-                    console.log(`Hola desde el método esté ${inningNumber}`)
-                    inning.inning = inningNumber + 1
-                    Innings.create(req.con, inning, (err, rows) => {
-                        if (err) console.error(err)
-                        res.render("getInning", { inning: inning });
-                    })
-                })
             Innings.create(req.con, inning, (err, rows) => {
                 if (err) console.error(err)
+                console.table(rows)
                 res.render("getInning", { inning: inning }); //Redirect a categories/fk
             })
         })

@@ -3,9 +3,15 @@ const router = express.Router();
 
 const dependencyController = require('../controller/dependencyController')
 const categoryController = require('../controller/categoryController')
+const authController = require('../controller/authController')
 const inningController = require('../controller/inningController')
 
 router.get('/', dependencyController.index);
+
+router.get('/login', authController.login);
+router.post('/auth', authController.auth);
+router.get('/register', authController.toRegister)
+router.post('/register', authController.register)
 
 router.get('/dependencia/:fk', categoryController.getByDependency); //
 router.get('/dependencia/:fkDependency/categoria/:fkCategory', inningController.arrive); //

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Register</title>
+    <%- include('./partials/head'); %>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-6 col-sm-8 mt-4">
+
+                <div class="card shadow">
+                    <div class="card-title text-center border-bottom">
+                        <h2 class="p-3 m-2">Registrate</h2>
+                    </div>
+                    <div class="card-body">
+                        <form class="form-group" method="POST" action="register">
+                            <div class="mb-3">
+                                <label for="validationServer01" class="form-label">Nombre de usuario</label>
+                                <input type="text" name="user" class="form-control""  required>
+                                
+                              </div>
+                            <div class="mb-3">
+                                <label for="validationServer01" class="form-label">Nombre Completo</label>
+                                <input type="text" name="name" class="form-control"  required>
+                                
+                              </div>
+
+                              <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Contraseña</label>
+                                <input type="password" name="pass" class="form-control" id="exampleInputPassword1">
+                              </div>
+
+                             
+                              <button type="submit" class="btn btn-primary mt-4 mb-3">Registrarse</button>
+                        </form>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

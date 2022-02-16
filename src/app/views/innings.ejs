@@ -9,55 +9,45 @@
 <body>
 
     <%- include('./partials/header'); %>
-
-        <!-- Para agregar -->
-        <div class="container m-4 text-center">
-            <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addInningModal"
-                data-bs-whatever="@fat"><span class="material-icons">person_add_alt</span></button>
-        </div>
-        <!-- Modal para agregar -->
-        <%- include('./partials/addInningModal', {inning:inning}); %>
-
         <table class="table table-striped table-bordered table-lg" cellspacing="0" width="100%">
-                <thead>
+            <thead>
+                <tr>
+                    <th scope="col">Documento</th>
+                    <th scope="col">Turno</th>
+                    <th scope="col">Dependencia</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Desactivar</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <% for(let inning of innings) { %>
                     <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">C.C.</th>
-                        <th scope="col">Turno</th>
-                        <th scope="col">Listo</th>
-                        <th scope="col">Borrar</th>
+                        <th scope="row" align="center" valign="middle">
+                            <%= inning.document %>
+                        </th>
+                        <td align="center" valign="middle">
+                            <%= inning.inning %>
+                        </td>
+                        <td align="center" valign="middle">
+                            <%= inning.fk_dependency %>
+                        </td>
+                        
+                        <td align="center" valign="middle">
+                            <%= inning.fk_category %>
+                        </td>
+                        
+                        <td align="center" valign="middle"> <a href="/innings/deactivate/<%= inning.id_inning %>"
+                                class="btn btn-danger"
+                                style="display: flex;align-items: center;justify-content: center;"><span
+                                    class="material-icons">delete_forever</span></a></td>
                     </tr>
-                </thead>
-                <tbody>
+                    <% } %>
+            </tbody>
+        </table>
+        </section>
 
-                    <% for(let inning of innings) { %>
-                        <tr>
-                            <th scope="row" align="center" valign="middle">
-                                <%= inning.id_inning %>
-                            </th>
-                            <td align="center" valign="middle">
-                                <%= inning.category_name %>
-                            </td>
-                            <td align="center" valign="middle">
-                                <%= inning.dependency_name %>
-                            </td>
-                            <td align="center" valign="middle"> <button type="button" class="btn btn-primary"
-                                    data-bs-toggle="modal" data-bs-target="#editModal<%= inning.id_inning %>"
-                                    data-bs-whatever="@fat"
-                                    style="display: flex;align-items: center;justify-content: center;"><span
-                                        class="material-icons">edit</span></button> </td>
-                            <td align="center" valign="middle"> <a
-                                    href="/innings/delete/<%= inning.id_inning %>" class="btn btn-danger"
-                                    style="display: flex;align-items: center;justify-content: center;"><span
-                                        class="material-icons">delete_forever</span></a></td>
-                        </tr>
-                        <%- include('./partials/editInningModal', {inning:inning}); %>
-                            <% } %>
-                </tbody>
-            </table>
-            </section>
-
-            <%- include('./partials/footer'); %>
+        <%- include('./partials/footer'); %>
 
 </body>
 
