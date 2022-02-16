@@ -8,7 +8,13 @@ module.exports = {
                 console.table(rows)
 
                 if (rows.length == 0) return res.render("innings", { innings: [] })
-                return res.render("innings", { innings: rows })
+                return res.render("innings", {
+                    innings: rows,
+                    activeSession: {
+                        loggedIn: req.session.loggedIn,
+                        name: req.session.name
+                    }
+                })
             }
         )
     },
@@ -33,11 +39,9 @@ module.exports = {
     },
 
     edit: function (req, res) {
-        console.log(req.body.Inning_name)
         const id = req.params.id
         const name = req.body.Inning_name;
 
-        console.log(name)
 
         Innings.update(req.con, id, name, function (err, rows) {
             console.table(rows)
@@ -57,13 +61,22 @@ module.exports = {
         Innings.getByDependency(req.con, req.params.fk, (err, rows) => {
             if (err) console.error(err)
 
-            res.render("indexInnings", { Innings: rows, fkDependency: req.params.fk })
+            res.render("indexInnings", {
+                Innings: rows, fkDependency: req.params.fk, activeSession: {
+                    loggedIn: req.session.loggedIn,
+                    name: req.session.name
+                }
+            })
         })
     },
 
     arrive: function (req, res) {
-        //console.log(req.params) //=>{ fkDependency: '1', fkCategory: '1' }
-        res.render("arrive", { fkDependency: req.params.fkDependency, fkCategory: req.params.fkCategory });
+        res.render("arrive", {
+            fkDependency: req.params.fkDependency, fkCategory: req.params.fkCategory, activeSession: {
+                loggedIn: req.session.loggedIn,
+                name: req.session.name
+            }
+        });
     },
 
     getInning: function (req, res) {
@@ -77,16 +90,23 @@ module.exports = {
 
         Innings.getActivesOfDayByCategory(req.con, inning.fk_category, (err, rows) => {
             if (err) console.error(err)
-            console.log(rows)
 
-            if (rows.length != 0) inningNumber = rows[0].inning
-            console.log(inningNumber)
+            if (rows.length != 0) {
+                inningNumber = rows[0].inning
+                inning.dependency_name =  rows[0].dependency_name
+                inning.category_name =  rows[0].category_name
+            }
             inning.inning = inningNumber + 1
 
             Innings.create(req.con, inning, (err, rows) => {
                 if (err) console.error(err)
                 console.table(rows)
-                res.render("getInning", { inning: inning }); //Redirect a categories/fk
+                res.render("getInning", {
+                    inning: inning, activeSession: {
+                        loggedIn: req.session.loggedIn,
+                        name: req.session.name
+                    }
+                }); //Redirect a categories/fk
             })
         })
     }

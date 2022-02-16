@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+
 const dependencyController = require('../controller/dependencyController')
 const categoryController = require('../controller/categoryController')
 const authController = require('../controller/authController')
@@ -10,14 +11,14 @@ router.get('/', dependencyController.index);
 
 router.get('/login', authController.login);
 router.post('/auth', authController.auth);
-router.get('/register', authController.toRegister)
-router.post('/register', authController.register)
+router.get('/logout', authController.logout)
 
 router.get('/dependencia/:fk', categoryController.getByDependency); //
 router.get('/dependencia/:fkDependency/categoria/:fkCategory', inningController.arrive); //
 router.post('/dependencia/:fkDependency/categoria/:fkCategory', inningController.getInning); //
 
 router.get('/innings/', inningController.list);
+//TODO deactivate router.get('/innings/deactivate/:id', inningController.list);
 
 router.get('/dependencies/', dependencyController.list);
 router.post('/dependencies/create', dependencyController.create);

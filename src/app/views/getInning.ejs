@@ -10,16 +10,30 @@
 
     <%- include('./partials/header'); %>
 
-        <div class="row">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-6 col-sm-8 mt-4">
 
-            Se le ha dado el turno # <%= inning.inning %>
-            <%= inning.document %>,
-            <%= inning.inning %>,
-            <%= inning.fk_dependency %>,
-            <%= inning.fk_category %>,
+                    <a class="card shadow" href="/dependencia/<%= inning.fk_dependency %>" style="text-decoration: none;">
+                        <div class="card border-dark">
+                            <div class="card-header">Turno asignado</div>
+                            <div class="card-body text-dark">
+                                <h5 class="card-title">Se le ha dado el turno # <%= inning.inning %>
+                                </h5>
+                                <p class="card-text">
+                                    Se le ha asignado un turno en la dependencia <%= inning.dependency_name %>, se le
+                                        llamará por el número de documento <%= inning.document %>, a la categoria <%=
+                                                inning.category_name %>,
 
 
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
+
 
         <%- include('./partials/footer'); %>
 </body>

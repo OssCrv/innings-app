@@ -81,7 +81,10 @@ module.exports = {
     },
 
     getActivesOfDayByCategory: function (con, fk, callback) {
-        con.query(`SELECT * FROM innings WHERE DAY(date_creation)>=DAY(CURDATE()) AND ACTIVE AND fk_category = ${fk} ORDER BY inning DESC;`,
+        con.query(`SELECT * FROM innings 
+        JOIN categories ON categories.id_category = innings.fk_category
+        JOIN dependencies ON categories.fk_dependency = dependencies.id_dependency
+        WHERE DAY(date_creation)>=DAY(CURDATE()) AND ACTIVE AND fk_category = ${fk} ORDER BY inning DESC;`,
             callback)
     }
 

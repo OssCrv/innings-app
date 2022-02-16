@@ -14,7 +14,13 @@ module.exports = {
                     if (err) console.error(err)
                     let dependencies = rows.map(row => row.dependency_name)
 
-                    res.render("categories", { categories: categories, dependencies: dependencies })
+                    res.render("categories", {
+                        categories: categories, dependencies: dependencies,
+                        activeSession: {
+                            loggedIn: req.session.loggedIn,
+                            name: req.session.name
+                        }
+                    })
                 })
             }
         )
@@ -40,11 +46,8 @@ module.exports = {
     },
 
     edit: function (req, res) {
-        console.log(req.body.category_name)
         const id = req.params.id
         const name = req.body.category_name;
-
-        console.log(name)
 
         Categories.update(req.con, id, name, function (err, rows) {
             console.table(rows)
@@ -89,6 +92,10 @@ module.exports = {
                 res.render("indexCategories", {
                     inningsByCategory: data,
                     fkDependency: req.params.fk,
+                    activeSession: {
+                        loggedIn: req.session.loggedIn,
+                        name: req.session.name
+                    }
                 })
             })
         })

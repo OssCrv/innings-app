@@ -7,7 +7,12 @@ module.exports = {
             function (err, rows) {
                 if (err) console.error(err)
                 console.table(rows)
-                res.render("index", { dependencies: rows })
+                res.render("index", {
+                    dependencies: rows, activeSession: {
+                        loggedIn: req.session.loggedIn,
+                        name: req.session.name
+                    }
+                })
             })
     },
     list: function (req, res) {
@@ -15,12 +20,16 @@ module.exports = {
             function (err, rows) {
                 if (err) console.error(err)
                 console.table(rows)
-                res.render("dependencies", { dependencies: rows })
+                res.render("dependencies", {
+                    dependencies: rows, activeSession: {
+                        loggedIn: req.session.loggedIn,
+                        name: req.session.name
+                    }
+                })
             })
     },
 
     create: function (req, res) {
-        console.log(req.body)
         Dependencies.create(req.con, req.body.dependency_name,
             function (err, rows) {
                 if (err) console.error(err)
@@ -37,13 +46,12 @@ module.exports = {
             id,
             name,
             function (err, rows) {
-                console.table(rows)
+                if (err) console.error(err)
                 res.redirect("/dependencies")
             })
     },
 
     delete: function (req, res) {
-        console.log(req.params)
         Dependencies.delete(req.con, req.params.id,
             function (err, rows) {
                 console.table(rows)
